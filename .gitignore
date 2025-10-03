@@ -43,7 +43,6 @@ Thumbs.db
 ### Environment / Config ###
 *.env
 !example.env
-application.yml
 
 ### Backup / Temp ###
 *.bak
