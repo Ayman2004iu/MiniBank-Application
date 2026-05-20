@@ -86,8 +86,8 @@ It simulates core banking operations such as account creation, deposits, withdra
 
 - Ayman Ibrahim Siddek
 
-- ayman2004uuuuu@gmail.com
+- ayman.ibrahim.seddik@gmail.com
 
--  [GitHub](https://github.com/Ayman2004iu)
+- [GitHub](https://github.com/Ayman2004iu)
 
-- [LinkedIn]( https://www.linkedin.com/in/ayman-ibrahim-8b48aa28a/)
+- [LinkedIn]( https://www.linkedin.com/in/ayman-ibrahim-dev/)
