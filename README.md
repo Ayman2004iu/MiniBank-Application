@@ -84,7 +84,7 @@ It simulates core banking operations such as account creation, deposits, withdra
 
 ## Author
 
-- Ayman Ibrahim Siddek
+- Ayman Ibrahim Seddik
 
 - ayman.ibrahim.seddik@gmail.com
 
