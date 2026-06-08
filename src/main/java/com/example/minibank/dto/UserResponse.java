@@ -1,16 +1,17 @@
 package com.example.minibank.dto;
 
+import com.example.minibank.model.Role;
 import lombok.*;
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class AccountResponse {
+public class UserResponse {
     private Long id;
-    private String accountNumber;
-    private BigDecimal balance;
+    private String username;
+    private String email;
+    private Role role;
     private LocalDateTime createdAt;
 }

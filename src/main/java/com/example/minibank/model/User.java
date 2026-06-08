@@ -1,10 +1,8 @@
 package com.example.minibank.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
-
 
 @Entity
 @Table(name = "users")
@@ -18,29 +16,22 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @Column(unique = true, nullable = false)
     private String username;
-
 
     @Column(nullable = false)
     private String password;
 
-
-    @Column(unique = true , nullable = false)
+    @Column(unique = true, nullable = false)
     private String email;
 
-
-    private LocalDateTime createdAt= LocalDateTime.now();
-
+    private LocalDateTime createdAt;
 
     @Enumerated(EnumType.STRING)
-    private Role  role = Role.USER;
-
+    private Role role = Role.USER;
 
     @PrePersist
     public void prePersist() {
-
         createdAt = LocalDateTime.now();
     }
 }

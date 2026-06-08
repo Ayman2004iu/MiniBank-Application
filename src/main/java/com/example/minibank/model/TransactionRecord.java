@@ -5,9 +5,11 @@ import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
 @Entity
-@Table(name = "transactions")
+@Table(name = "transactions", indexes = {
+        @Index(name = "idx_transaction_account_id", columnList = "account_id"),
+        @Index(name = "idx_transaction_timestamp", columnList = "timestamp")
+})
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,7 +20,6 @@ public class TransactionRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
     @ManyToOne(optional = false)
     private Account account;
 
@@ -26,20 +27,15 @@ public class TransactionRecord {
     @Column(nullable = false)
     private TransactionType type;
 
-
     @Column(nullable = false)
     private BigDecimal amount;
 
-
     private String note;
-
 
     private LocalDateTime timestamp;
 
-
     @PrePersist
     public void prePersist() {
-
         timestamp = LocalDateTime.now();
     }
 }

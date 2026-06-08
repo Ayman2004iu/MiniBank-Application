@@ -6,10 +6,20 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: false
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
+    open-in-view: false
+  threads:
+    virtual:
+      enabled: true
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
 
 jwt:
   secret: ${JWT_SECRET}
@@ -18,4 +28,11 @@ jwt:
 server:
   port: 8080
 
-
+app:
+  cors:
+    allowed-origins: ${APP_CORS_ALLOWED_ORIGINS:http://localhost:3000}
+  transaction:
+    limits:
+      max-withdraw-amount: 10000
+      max-transfer-amount: 50000
+      max-daily-transfers: 5

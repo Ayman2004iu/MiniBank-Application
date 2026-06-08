@@ -41,8 +41,10 @@ out/
 Thumbs.db
 
 ### Environment / Config ###
+.env
 *.env
 !example.env
+src/main/resources/application-local.yml
 
 ### Backup / Temp ###
 *.bak
