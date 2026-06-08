@@ -309,7 +309,7 @@ Result: No deadlock — both threads follow the same locking order.
 
 ```bash
 git clone https://github.com/Ayman2004iu/MiniBank-Application.git
-cd MiniBankApp
+cd MiniBank-Application
 ```
 
 ### 2. Create local configuration
