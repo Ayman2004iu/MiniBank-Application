@@ -24,7 +24,7 @@ public class Account {
     @Column(unique = true, nullable = false)
     private String accountNumber;
 
-    @Column(nullable = false)
+    @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal balance;
 
     private LocalDateTime createdAt;

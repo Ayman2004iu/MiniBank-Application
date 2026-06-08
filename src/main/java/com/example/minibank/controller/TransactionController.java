@@ -44,6 +44,7 @@ public class TransactionController {
             Authentication auth,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
+        size = Math.min(size, 100);
         return ResponseEntity.ok(transactionService.history(accountNumber, auth.getName(), page, size));
     }
 
@@ -52,6 +53,7 @@ public class TransactionController {
     public ResponseEntity<Page<TransactionResponse>> getAllHistory(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
+        size = Math.min(size, 100);
         return ResponseEntity.ok(transactionService.getAllHistory(page, size));
     }
 }
