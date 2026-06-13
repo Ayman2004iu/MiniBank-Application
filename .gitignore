@@ -49,3 +49,9 @@ src/main/resources/application-local.yml
 ### Backup / Temp ###
 *.bak
 *.tmp
+
+# Repomix Outputs and Configs
+repomix-output.txt
+repomix-output.xml
+repomix-output.*
+.repomix.config.json
