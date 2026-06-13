@@ -26,6 +26,7 @@ public class AdminController {
     public ResponseEntity<Page<UserResponse>> getAllUsers(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
+        size = Math.min(size, 100);
         return ResponseEntity.ok(userService.getAllUsers(page, size));
     }
 
@@ -33,6 +34,7 @@ public class AdminController {
     public ResponseEntity<Page<AccountResponse>> getAllAccounts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
+        size = Math.min(size, 100);
         return ResponseEntity.ok(accountService.getAllAccounts(page, size));
     }
 }

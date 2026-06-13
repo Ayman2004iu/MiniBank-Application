@@ -110,7 +110,7 @@ MySQL Database
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/api/accounts` | Create a new account (min opening balance: 100) |
-| GET | `/api/accounts/{accountNumber}` | Get account details |
+| GET | `/api/accounts/{accountNumber}` | Get account details (owner only) |
 | GET | `/api/accounts/my-accounts` | Get all accounts for the logged-in user |
 
 ### Transactions — Requires Authentication
@@ -286,11 +286,11 @@ Exceeding the daily transfer limit returns **429 Too Many Requests**.
 All balance-modifying operations (`deposit`, `withdraw`, `transfer`) use `SELECT ... FOR UPDATE` to prevent dirty reads and lost updates under concurrent access.
 
 ### Deadlock Prevention
-Transfers always acquire locks in a consistent order based on account ID, eliminating circular wait conditions.
+Transfers always acquire locks in a consistent order based on account number, regardless of which account is the source or the target, eliminating circular wait conditions.
 
 ```
-Thread A: transfer Account #1 → Account #2   (locks #1 first, then #2)
-Thread B: transfer Account #2 → Account #1   (locks #1 first, then #2)
+Thread A: transfer Account MB...1 → Account MB...2   (locks MB...1 first, then MB...2)
+Thread B: transfer Account MB...2 → Account MB...1   (locks MB...1 first, then MB...2)
 
 Result: No deadlock — both threads follow the same locking order.
 ```
@@ -429,10 +429,10 @@ Tests use an **H2 in-memory database** — no MySQL or Docker required.
 | Type | Test Class | What It Tests |
 |------|-----------|---------------|
 | Unit | `AuthServiceImplTest` | Register, login, duplicate user |
-| Unit | `AccountServiceImplTest` | Create, get, list accounts |
+| Unit | `AccountServiceImplTest` | Create, get, list accounts, ownership checks |
 | Unit | `TransactionServiceImplTest` | Deposit, withdraw, transfer, all limits |
 | Integration | `AuthControllerIntegrationTest` | Auth endpoints end-to-end |
-| Integration | `AccountControllerIntegrationTest` | Account endpoints end-to-end |
+| Integration | `AccountControllerIntegrationTest` | Account endpoints end-to-end, including ownership enforcement |
 | Integration | `TransactionControllerIntegrationTest` | Transaction endpoints end-to-end |
 | Integration | `AdminControllerIntegrationTest` | Admin endpoints, role enforcement |
 | Repository | `AccountRepositoryTest` | Repository queries |

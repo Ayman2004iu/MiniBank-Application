@@ -113,21 +113,15 @@ public class TransactionServiceImpl implements TransactionService {
             throw new DailyTransferLimitExceededException(maxDailyTransfers);
         }
 
-        Account accA = findAccountForUpdate(dto.getAccountNumber());
-        Account accB = findAccountForUpdate(dto.getTargetAccountNumber());
+        Account from;
+        Account to;
 
-        Account from, to;
-        if (accA.getId() < accB.getId()) {
-            from = accA;
-            to = accB;
+        if (dto.getAccountNumber().compareTo(dto.getTargetAccountNumber()) < 0) {
+            from = findAccountForUpdate(dto.getAccountNumber());
+            to = findAccountForUpdate(dto.getTargetAccountNumber());
         } else {
-            from = accB;
-            to = accA;
-            if (!from.getAccountNumber().equals(dto.getAccountNumber())) {
-                Account temp = from;
-                from = to;
-                to = temp;
-            }
+            to = findAccountForUpdate(dto.getTargetAccountNumber());
+            from = findAccountForUpdate(dto.getAccountNumber());
         }
 
         validateOwnership(from, email, dto.getAccountNumber());

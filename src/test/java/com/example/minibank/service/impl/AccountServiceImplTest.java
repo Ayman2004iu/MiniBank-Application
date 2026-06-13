@@ -3,6 +3,7 @@ package com.example.minibank.service.impl;
 import com.example.minibank.dto.AccountRequest;
 import com.example.minibank.dto.AccountResponse;
 import com.example.minibank.exception.ResourceNotFoundException;
+import com.example.minibank.exception.UnauthorizedAccountAccessException;
 import com.example.minibank.model.Account;
 import com.example.minibank.model.Role;
 import com.example.minibank.model.User;
@@ -100,7 +101,7 @@ class AccountServiceImplTest {
     void getAccount_Success() {
         when(accountRepository.findByAccountNumber("MB00000000000001")).thenReturn(Optional.of(account));
 
-        AccountResponse response = accountService.getAccount("MB00000000000001");
+        AccountResponse response = accountService.getAccount("MB00000000000001", "ayman@test.com");
 
         assertThat(response.getAccountNumber()).isEqualTo("MB00000000000001");
         assertThat(response.getBalance()).isEqualByComparingTo(BigDecimal.valueOf(500));
@@ -110,9 +111,17 @@ class AccountServiceImplTest {
     void getAccount_ThrowsException_WhenNotFound() {
         when(accountRepository.findByAccountNumber("INVALID")).thenReturn(Optional.empty());
 
-        assertThatThrownBy(() -> accountService.getAccount("INVALID"))
+        assertThatThrownBy(() -> accountService.getAccount("INVALID", "ayman@test.com"))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessageContaining("INVALID");
+    }
+
+    @Test
+    void getAccount_ThrowsException_WhenNotOwner() {
+        when(accountRepository.findByAccountNumber("MB00000000000001")).thenReturn(Optional.of(account));
+
+        assertThatThrownBy(() -> accountService.getAccount("MB00000000000001", "someoneelse@test.com"))
+                .isInstanceOf(UnauthorizedAccountAccessException.class);
     }
 
     @Test

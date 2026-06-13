@@ -30,8 +30,8 @@ public class AccountController {
     }
 
     @GetMapping("/{accountNumber}")
-    public ResponseEntity<AccountResponse> getAccount(@PathVariable String accountNumber) {
-        return ResponseEntity.ok(accountService.getAccount(accountNumber));
+    public ResponseEntity<AccountResponse> getAccount(@PathVariable String accountNumber, Authentication auth) {
+        return ResponseEntity.ok(accountService.getAccount(accountNumber, auth.getName()));
     }
 
     @GetMapping("/my-accounts")

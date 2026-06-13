@@ -3,6 +3,7 @@ package com.example.minibank.service.impl;
 import com.example.minibank.dto.AccountRequest;
 import com.example.minibank.dto.AccountResponse;
 import com.example.minibank.exception.ResourceNotFoundException;
+import com.example.minibank.exception.UnauthorizedAccountAccessException;
 import com.example.minibank.model.Account;
 import com.example.minibank.model.User;
 import com.example.minibank.repository.AccountRepository;
@@ -58,9 +59,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountResponse getAccount(String accountNumber) {
+    public AccountResponse getAccount(String accountNumber, String email) {
         Account acc = accountRepository.findByAccountNumber(accountNumber)
                 .orElseThrow(() -> new ResourceNotFoundException("Account not found: " + accountNumber));
+
+        if (!acc.getOwner().getEmail().equals(email)) {
+            log.warn("Unauthorized account access attempt: account={} user={}", accountNumber, email);
+            throw new UnauthorizedAccountAccessException(accountNumber);
+        }
+
         return mapToResponse(acc);
     }
 

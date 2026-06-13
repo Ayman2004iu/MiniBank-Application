@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface AccountService {
     AccountResponse createAccount(String email, AccountRequest request);
-    AccountResponse getAccount(String accountNumber);
+    AccountResponse getAccount(String accountNumber, String email);
     List<AccountResponse> getAccountsByEmail(String email);
     Page<AccountResponse> getAllAccounts(int page, int size);
 }
