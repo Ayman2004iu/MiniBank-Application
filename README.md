@@ -4,7 +4,7 @@
 ![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.5-green?style=for-the-badge&logo=springboot)
 ![MySQL](https://img.shields.io/badge/MySQL-8.0-orange?style=for-the-badge&logo=mysql)
 ![Docker](https://img.shields.io/badge/Docker-Enabled-blue?style=for-the-badge&logo=docker)
-![CI/CD](https://img.shields.io/badge/GitHub%20Actions-CI%2FCD-brightgreen?style=for-the-badge&logo=githubactions)
+![CI/CD](https://github.com/Ayman2004iu/MiniBank-Application/actions/workflows/ci.yml/badge.svg)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
 
 ## Overview
